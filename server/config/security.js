@@ -13,6 +13,14 @@
  * https://sailsjs.com/config/security
  */
 
+const { URL } = require('url');
+
+// Build the CORS allowlist from BASE_URL (comma-separated list of app URLs).
+// Falls back to localhost:3000 for local development when BASE_URL is not set.
+const allowOrigins = process.env.BASE_URL
+  ? process.env.BASE_URL.split(',').map((u) => new URL(u.trim()).origin)
+  : ['http://localhost:3000'];
+
 module.exports.security = {
   /**
    *
@@ -29,7 +37,7 @@ module.exports.security = {
 
   cors: {
     allRoutes: true,
-    allowOrigins: ['http://localhost:3000'],
+    allowOrigins,
     allowRequestHeaders: ['Authorization'],
     allowCredentials: true,
   },
