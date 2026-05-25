@@ -5,7 +5,8 @@
   "hooks": {
     "blueprints": false,
     "grunt": false,
-    "session": false
+    "session": false,
+    "sockets": false
   },
   "paths": {
     "public": "public"
