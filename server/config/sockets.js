@@ -9,7 +9,22 @@
  * https://sailsjs.com/config/sockets
  */
 
+const { URL } = require('url');
+
+const onlyAllowOrigins = process.env.BASE_URL
+  ? process.env.BASE_URL.split(',').map((baseUrl) => new URL(baseUrl).origin)
+  : undefined;
+
 module.exports.sockets = {
+  /**
+   *
+   * Restrict which origins are permitted to open socket connections.
+   * Derived from BASE_URL (comma-separated list of allowed base URLs).
+   * When BASE_URL is not set this is left undefined, which allows all origins.
+   *
+   */
+  ...(onlyAllowOrigins ? { onlyAllowOrigins } : {}),
+
   /**
    *
    * `transports`
