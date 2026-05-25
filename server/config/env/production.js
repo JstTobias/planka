@@ -23,7 +23,9 @@ const { URL } = require('url');
 
 const { customLogger } = require('../../utils/logger');
 
-const origins = process.env.BASE_URL.split(',').map((baseUrl) => new URL(baseUrl).origin);
+const origins = process.env.BASE_URL
+  ? process.env.BASE_URL.split(',').map((baseUrl) => new URL(baseUrl).origin)
+  : ['*'];
 
 module.exports = {
   /**
